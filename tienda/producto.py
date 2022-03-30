@@ -60,7 +60,12 @@ def create():
 @login_required
 def read():
     g.pagina = 'read'
-    return render_template('store/read.html')
+    if request.method == 'GET':
+        db, c = get_db()
+        c.execute('SELECT * FROM product')
+        productos = c.fetchall()
+
+    return render_template('store/read.html',product = productos)
 
 @bp.route('/update', methods=['GET', 'POST'])
 @login_required

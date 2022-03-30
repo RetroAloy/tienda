@@ -23,7 +23,7 @@
                 {% else %}
                 <li><a href="{{ url_for('auth.validacion') }}" class="collection-item {% if g.pagina == 'register' %}active{% endif %}">Registrarse</a></li>
                 <li><a href="{{ url_for('auth.login') }}" class="collection-item {% if g.pagina == 'login' %}active{% endif %}">Iniciar sesión</a></li>
-                {% endif %} {% if g.pagina == 'create' %}
+                {% endif %} {% if g.pagina == 'create' or g.pagina == 'read' %}
                 <li>
                     <a href="{{ url_for('producto.index') }}" class="collection-item">Regresar</a>
                 </li>
