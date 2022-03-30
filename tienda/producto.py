@@ -5,6 +5,7 @@ from flask import (
 from werkzeug.exceptions import abort
 from tienda.auth import login_required
 from tienda.db import get_db
+import mysql.connector
 
 bp = Blueprint('producto', __name__)
 
@@ -40,12 +41,18 @@ def create():
             flash(error)
         
         if error is None:
-            c.execute(
-                'INSERT INTO product (productname, price, quantity, description) VALUES (%s, %s, %s, %s)',
-                (productname, price, quantity, description)
-            )
-            db.commit()
-            return redirect(url_for('producto.index'))
+            try:
+                c.execute(
+                    'INSERT INTO product (productname, price, quantity, description) VALUES (%s, %s, %s, %s)',
+                    (productname, price, quantity, description)
+                )
+                db.commit()
+                return redirect(url_for('producto.index'))
+            except mysql.connector.IntegrityError as err:
+                error = 'Nombre ya existe'
+                flash(error)
+                return redirect(url_for('producto.create'))
+                
 
     return render_template('store/create.html')
 
