@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body class="{% if g.pagina == 'login' or g.pagina == 'register' %}blue lighten-4{% elif g.pagina == 'index' %}indigo lighten-4{% endif %}">
+    <nav class="{% if g.pagina == 'register' or g.pagina == 'login' %}yellow darken-3{% elif g.pagina == 'index' %}deep-purple{% endif %}">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo right">Tienda</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                {% if g.user %}
+                <li>
+                    <a href="{{ url_for('auth.logout') }}" class="collection-item">Cerrar sesión</a>
+                </li>
+
+                {% else %}
+                <li><a href="{{ url_for('auth.validacion') }}" class="collection-item {% if g.pagina == 'register' %}active{% endif %}">Registrarse</a></li>
+                <li><a href="{{ url_for('auth.login') }}" class="collection-item {% if g.pagina == 'login' %}active{% endif %}">Iniciar sesión</a></li>
+                {% endif %} {% if g.pagina == 'create' %}
+                <li>
+                    <a href="{{ url_for('producto.index') }}" class="collection-item">Regresar</a>
+                </li>
+                {% endif %}
+            </ul>
+
+
+        </div>
+    </nav>
+
+    <section class="container">
+        <header>
+            {% block header %} {% endblock %}
+        </header>
+        {% block greeting %} {% endblock %} {% for message in get_flashed_messages() %}
+        <div class="flash">
+            <div class="row">
+                <div class="col s12 m4 l2"></div>
+                <div class="col s12 m4 l8">
+                    <span class="red-text">{{ message }}</span>
+                </div>
+                <div class="col s12 m4 l2"></div>
+            </div>
+        </div>
+        {% endfor %} <br>{% block content %} {% endblock %}
+    </section>
+
+    </div>
+
+    <br><br>
+
+    <footer class="page-footer {% if g.pagina == 'register' or g.pagina == 'login' %}blue{% elif g.pagina == 'index' %}amber darken-1{% endif %}">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Proyecto Tienda</h5>
+                    <p class="grey-text text-lighten-4">
+                        Hola, mi nombre es Adrian y soy desarrollador junior, he creado está página web funcional para tiendas miscelaneas que deseen administrar a sus empleados y sus almacenes de productos.
+                    </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Contactame</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/profile.php?id=100079994705290" target="_blank">Facebook</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Instagram</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">LinkedIn</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">vadrianenrique@gmail.com</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Cel.:5511980471</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2022 Téc. Adrian Valdivia
+                <a class="grey-text text-lighten-4 right" href="https://fathomless-thicket-44167.herokuapp.com/" target="_blank">Conoce más de mi</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
