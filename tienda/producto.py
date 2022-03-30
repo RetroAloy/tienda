@@ -21,6 +21,32 @@ def index():
 @login_required
 def create():
     g.pagina = 'create'
+    if request.method == 'POST':
+        productname     = request.form['productname']
+        price           = request.form['price']
+        quantity        = request.form['quantity']
+        description     = request.form['description']
+
+        db, c = get_db()
+        error = None
+
+        if not productname:
+            error = 'Nombre es requerido'
+        if not price:
+            error = 'Precio es requerido'
+        if not quantity:
+            error = 'Cantidad es requerida'
+        if error is not None:
+            flash(error)
+        
+        if error is None:
+            c.execute(
+                'INSERT INTO product (productname, price, quantity, description) VALUES (%s, %s, %s, %s)',
+                (productname, price, quantity, description)
+            )
+            db.commit()
+            return redirect(url_for('producto.index'))
+
     return render_template('store/create.html')
 
 @bp.route('/read', methods=['GET', 'POST'])
