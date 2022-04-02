@@ -1,1 +1,43 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block title %} Lista de productos - Tienda {% endblock %} {% block header %}
+<div class="container">
+    <h1> Lista de productos </h1>
+    <p>
+        Bienvenido a la pantalla de lista de productos, a continuación se encuentra toda la información de los productos registrados en el inventario.
+    </p>
+</div>
+{% endblock %} {% block content %}
+<div class="container">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>
+                    {{ product['id'] }}
+                </td>
+                <td>
+                    {{ product['productname'] }}
+                </td>
+                <td>
+                    {{ product['price'] }}
+                </td>
+                <td>
+                    {{ product['quantity'] }}
+                </td>
+                <td>
+                    {{ product['description'] }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>{% endblock %}

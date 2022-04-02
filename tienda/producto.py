@@ -65,13 +65,54 @@ def read():
         c.execute('SELECT * FROM product')
         productos = c.fetchall()
 
-    return render_template('store/read.html',product = productos)
+    return render_template('store/read.html',products = productos)
 
 @bp.route('/update', methods=['GET', 'POST'])
 @login_required
 def update():
     g.pagina = 'update'
-    return render_template('store/update.html')
+    db, c = get_db()
+    c.execute('SELECT * FROM product')
+    productos = c.fetchall()
+
+    if request.method == 'POST':
+        id = request.form['id']
+        productname = request.form['productname']
+        price = request.form['price']
+        quantity = request.form['quantity']
+        description = request.form['description']
+
+        error = None
+
+        c.execute(
+            'SELECT * FROM product WHERE id = %s', (id, )
+        )
+        producto = c.fetchone()
+
+        if not id:
+            error = 'ID es requerido'
+        if not productname:
+            error = 'Nombre del producto es requerido'
+        if not price:
+            error = 'Precio es requerido'
+        if not quantity:
+            error = 'Cantidad es requerido'
+        if not description:
+            error = 'Descripción es requerido'
+        elif producto is None:
+            error = 'Producto con ID:{} no se encuentra registrado.'.format(id)
+
+        if error is not None:
+            flash(error)
+
+        if error is None:
+            c.execute(
+                'UPDATE product SET productname = %s, price = %s, quantity = %s, description = %s WHERE id = %s', (productname, price, quantity, description, id)
+            )
+            db.commit()
+            return redirect(url_for('producto.read'))
+            
+    return render_template('store/update.html', products = productos)
 
 @bp.route('/delete', methods=['GET', 'POST'])
 @login_required
