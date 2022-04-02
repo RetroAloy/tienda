@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block title %} Borrar Productos - Tienda {% endblock %} {% block header %}
+<div class="container">
+    <h1>
+        Eliminar Productos
+    </h1>
+    <p>
+        Bienvenido a la pantalla de eliminación de productos, en este apartado podras eliminar aquellos productos que ya no desees en tu inventario.
+    </p>
+</div>
+{% endblock %} {% block content %}
+<div class="container">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>
+                    {{ product['id'] }}
+                </td>
+                <td>
+                    {{ product['productname'] }}
+                </td>
+                <td>
+                    {{ product['price'] }}
+                </td>
+                <td>
+                    {{ product['quantity'] }}
+                </td>
+                <td>
+                    {{ product['description'] }}
+                </td>
+                <td>
+                    <button class="btn waves-effect waves-light red lighten-1" type="submit" name="action">Eliminar
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

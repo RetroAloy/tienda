@@ -118,4 +118,12 @@ def update():
 @login_required
 def delete():
     g.pagina = 'delete'
-    return render_template('store/delete.html')
+    if request.method == 'GET':
+        db, c = get_db()
+        c.execute('SELECT * FROM product')
+        productos = c.fetchall()
+
+    if request.method == 'POST':
+        pass
+
+    return render_template('store/delete.html', products = productos)
