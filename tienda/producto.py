@@ -118,12 +118,32 @@ def update():
 @login_required
 def delete():
     g.pagina = 'delete'
-    if request.method == 'GET':
-        db, c = get_db()
-        c.execute('SELECT * FROM product')
-        productos = c.fetchall()
+    db, c = get_db()  
+    c.execute('SELECT * FROM product')
+    productos = c.fetchall()
 
     if request.method == 'POST':
-        pass
+        id = request.form['id']
+        error = None
+        c.execute(
+            'SELECT * FROM product WHERE id = %s', (id, )
+        )
+        producto = c.fetchone()
+
+        if not id:
+            error = 'ID es requerido'
+        elif producto is None:
+            error = 'Producto con ID:{} no se encuentra registrado.'.format(id)
+        if error is not None:
+            flash(error)
+        if error is None:
+            c.execute(
+                'DELETE FROM product WHERE id = %s;', (id, )
+            )
+            db.commit()
+            return redirect(url_for('producto.read'))
+        
+
+
 
     return render_template('store/delete.html', products = productos)

@@ -25,10 +25,20 @@
     <li class="collection-item">
         <div>Eliminar productos<a href="{{ url_for('producto.delete') }}" class="secondary-content"><i class="material-icons">delete_forever</i></a></div>
     </li>
-    <li class="collection-item">
+    <!--li class="collection-item">
         <div>Consultar ventas<a href="{{ url_for('producto.delete') }}" class="secondary-content"><i class="material-icons">attach_money</i></a></div>
-    </li>
+    </li-->
 </ul>
 {% else %}
-<h1>Eres un empleado</h1>
+<ul class="collection with-header">
+    <li class="collection-header">
+        <h4>¿Qué deseas hacer {{ g.user['username'] }}?</h4>
+    </li>
+    <li class="collection-item">
+        <div>Lista de productos<a href="{{ url_for('producto.read') }}" class="secondary-content"><i class="material-icons">view_list</i></a></div>
+    </li>
+    <li class="collection-item">
+        <div>Actualizar productos<a href="{{ url_for('producto.update') }}" class="secondary-content"><i class="material-icons">update</i></a></div>
+    </li>
+</ul>
 {% endif %} {% endblock %}
