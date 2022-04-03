@@ -8,8 +8,9 @@ instructions = [
         CREATE TABLE product (
             id INT PRIMARY KEY AUTO_INCREMENT,
             productname VARCHAR(50) UNIQUE NOT NULL,
-            price DECIMAL(3,2) NOT NULL,
-            quantity INT NOT NULL
+            price DECIMAL(6,2) NOT NULL,
+            quantity INT NOT NULL,
+            description VARCHAR(50)
         );
     """,
     """
@@ -22,10 +23,11 @@ instructions = [
         CREATE TABLE user (
             id INT PRIMARY KEY AUTO_INCREMENT,
             username VARCHAR(50) UNIQUE NOT NULL,
-            password VARCHAR(100) NOT NULL,
+            password VARCHAR(150) NOT NULL,
             rol_id INT,
             FOREIGN KEY ( rol_id ) REFERENCES rol ( id )
         );
-    """
-    
+    """,
+    "INSERT INTO rol (rolname) VALUES ('Administrador');",
+    "INSERT INTO rol (rolname) VALUES ('Empleado');"
 ]
