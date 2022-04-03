@@ -10,7 +10,7 @@ MarkupSafe==2.1.1
 mysql-connector-python==8.0.27
 nums-from-string==0.1.2
 pefile==2021.9.3
-Pillow==9.0.0
+Pillow==9.0.1
 protobuf==3.19.1
 punctuation-remove==0.0.5
 pyinstaller==4.10
