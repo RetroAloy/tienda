@@ -1,5 +1,6 @@
 # Notas:
 Esta es una aplicacion para la gestión de inventarios de tiendas, con empleados y administradores. A continuación, se encuentran las librerias utilizadas en la aplicación.
+```
 altgraph==0.17.2
 click==8.0.4
 colorama==0.4.4
@@ -23,3 +24,4 @@ pywin32-ctypes==0.2.0
 sendgrid==6.9.7
 starkbank-ecdsa==2.0.3
 Werkzeug==2.0.3
+```
