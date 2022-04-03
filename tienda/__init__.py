@@ -1,5 +1,4 @@
 import os
-from webbrowser import get
 from flask import Flask
 from . import db
 from . import producto
