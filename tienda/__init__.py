@@ -9,7 +9,7 @@ from . import auth
 def create_app():
     app = Flask(__name__)
     app.config.from_mapping(
-        SECRET_KEY = 'unakey',
+        SECRET_KEY = os.environ.get('SECRET_KEY'),
         DATABASE_HOST = os.environ.get('DATABASE_FLASK_HOST'),
         DATABASE_USER = os.environ.get('DATABASE_FLASK_USER'),
         DATABASE_PASSWORD = os.environ.get('DATABASE_FLASK_PASSWORD'),
