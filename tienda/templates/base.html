@@ -15,6 +15,11 @@
     <nav class="{% if g.pagina == 'register' or g.pagina == 'login' %}yellow darken-3{% elif g.pagina == 'index' %}deep-purple{% endif %}">
         <div class="nav-wrapper">
             <a href="#" class="brand-logo right">Tienda</a>
+            <a href="#" data-target="menu-responsive" class="sidenav-trigger">
+                <i class="material-icons">
+                    menu
+                </i>
+            </a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 {% if g.user %}
                 <li>
@@ -34,6 +39,22 @@
 
         </div>
     </nav>
+
+    <ul class="sidenav" id="menu-responsive">
+        {% if g.user %}
+        <li>
+            <a href="{{ url_for('auth.logout') }}" class="collection-item">Cerrar sesión</a>
+        </li>
+
+        {% else %}
+        <li><a href="{{ url_for('auth.validacion') }}" class="collection-item {% if g.pagina == 'register' %}active{% endif %}">Registrarse</a></li>
+        <li><a href="{{ url_for('auth.login') }}" class="collection-item {% if g.pagina == 'login' %}active{% endif %}">Iniciar sesión</a></li>
+        {% endif %} {% if g.pagina == 'create' or g.pagina == 'read' or g.pagina == 'update' or g.pagina == 'delete'%}
+        <li>
+            <a href="{{ url_for('producto.index') }}" class="collection-item">Regresar</a>
+        </li>
+        {% endif %}
+    </ul>
 
     <section class="container">
         <header>
@@ -86,6 +107,13 @@
     </footer>
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+            //M.AutoInit(); Inicializa todos los javascripts para todos los elementos
+        })
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
